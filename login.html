@@ -16,17 +16,7 @@
     <button onclick="login()">Login</button>
   </div>
 
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBbVltJqfky8I0-vwfi1XqxZXAoGxXcVVU",
-  authDomain: "cooperative-nepal.firebaseapp.com",
-  projectId: "cooperative-nepal",
-  storageBucket: "cooperative-nepal.firebasestorage.app",
-  messagingSenderId: "3919502964",
-  appId: "1:3919502964:web:e79ce96a1abae499b27b21"
-};
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
