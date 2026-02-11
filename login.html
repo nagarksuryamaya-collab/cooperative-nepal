@@ -21,11 +21,18 @@
   </div>
 
   <script>
-    function login() {
-      document.getElementById("msg").innerText =
-        "Login system Firebase पछि connect हुनेछ";
-    }
-  </script>
+  // URL बाट role detect गर्ने
+  const params = new URLSearchParams(window.location.search);
+  const role = params.get("role") || "member";
+
+  document.getElementById("role").value = role;
+  document.getElementById("loginTitle").innerText =
+    role === "admin" ? "Admin Login" : "Member Login";
+
+  function login() {
+    alert(role.toUpperCase() + " login Firebase पछि connect हुनेछ");
+  }
+</script>
 
 </body>
 </html>
