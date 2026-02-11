@@ -23,21 +23,40 @@
   </div>
 
  <script>
+ const firebaseConfig = {
+    apiKey: "AIzaSyBbVltJqfky8I0-vwfi1XqxZXAoGxXcVVU",
+    authDomain: "cooperative-nepal.firebaseapp.com",
+    projectId: "cooperative-nepal",
+    storageBucket: "cooperative-nepal.firebasestorage.app",
+    messagingSenderId: "3919502964",
+    appId: "1:3919502964:web:e79ce96a1abae499b27b21"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
   const params = new URLSearchParams(window.location.search);
   const role = params.get("role") || "member";
 
-  document.getElementById("role").value = role;
   document.getElementById("loginTitle").innerText =
     role === "admin" ? "Admin Login" : "Member Login";
 
   function login() {
+    const email = document.querySelector("input[type='text']").value;
+    const password = document.querySelector("input[type='password']").value;
+
     if (role === "admin") {
-      window.location.href = "admin.html";
-    } else {
-      alert("Member dashboard next step मा बनाइन्छ");
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          window.location.href = "admin.html";
+        })
+        .catch(err => {
+          alert(err.message);
+        });
     }
   }
 </script>
+
 
 
 </body>
