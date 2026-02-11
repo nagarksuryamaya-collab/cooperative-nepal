@@ -20,8 +20,7 @@
     <p id="msg"></p>
   </div>
 
-  <script>
-  // URL बाट role detect गर्ने
+ <script>
   const params = new URLSearchParams(window.location.search);
   const role = params.get("role") || "member";
 
@@ -30,9 +29,14 @@
     role === "admin" ? "Admin Login" : "Member Login";
 
   function login() {
-    alert(role.toUpperCase() + " login Firebase पछि connect हुनेछ");
+    if (role === "admin") {
+      window.location.href = "admin.html";
+    } else {
+      alert("Member dashboard next step मा बनाइन्छ");
+    }
   }
 </script>
+
 
 </body>
 </html>
