@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
   <meta charset="UTF-8">
   <title>Login | Co-operative Nepal</title>
   <link rel="stylesheet" href="login.css">
@@ -12,51 +10,51 @@
   <div class="login-box">
     <h2 id="loginTitle">Login</h2>
 
-   <input type="hidden" id="role">
-
-    <input type="text" placeholder="Member ID / Admin ID">
-    <input type="password" placeholder="Password">
+    <input type="text" id="email" placeholder="Admin Email">
+    <input type="password" id="password" placeholder="Password">
 
     <button onclick="login()">Login</button>
-
-    <p id="msg"></p>
   </div>
 
- <script>
- const firebaseConfig = {
-    apiKey: "AIzaSyBbVltJqfky8I0-vwfi1XqxZXAoGxXcVVU",
-    authDomain: "cooperative-nepal.firebaseapp.com",
-    projectId: "cooperative-nepal",
-    storageBucket: "cooperative-nepal.firebasestorage.app",
-    messagingSenderId: "3919502964",
-    appId: "1:3919502964:web:e79ce96a1abae499b27b21"
-  };
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-  <script type="module" src="login.js"></script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBbVltJqfky8I0-vwfi1XqxZXAoGxXcVVU",
+  authDomain: "cooperative-nepal.firebaseapp.com",
+  projectId: "cooperative-nepal",
+  storageBucket: "cooperative-nepal.firebasestorage.app",
+  messagingSenderId: "3919502964",
+  appId: "1:3919502964:web:e79ce96a1abae499b27b21"
+};
 
-  const params = new URLSearchParams(window.location.search);
-  const role = params.get("role") || "member";
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-  document.getElementById("loginTitle").innerText =
-    role === "admin" ? "Admin Login" : "Member Login";
+// role detect
+const params = new URLSearchParams(window.location.search);
+const role = params.get("role") || "member";
 
-  function login() {
-    const email = document.querySelector("input[type='text']").value;
-    const password = document.querySelector("input[type='password']").value;
+document.getElementById("loginTitle").innerText =
+  role === "admin" ? "Admin Login" : "Member Login";
 
-    if (role === "admin") {
-      auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-          window.location.href = "admin.html";
-        })
-        .catch(err => {
-          alert(err.message);
-        });
-    }
+window.login = function () {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  if (!email || !password) {
+    alert("Email र Password हाल्नुहोस्");
+    return;
   }
-</script>
 
-
-
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      window.location.href = "admin.html";
+    })
+    .catch(error => {
+      alert(error.message);
+    });
+};
+  <script type="module" src="login.js"></script>
 </body>
 </html>
