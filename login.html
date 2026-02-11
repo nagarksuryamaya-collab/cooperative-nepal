@@ -32,8 +32,7 @@
     appId: "1:3919502964:web:e79ce96a1abae499b27b21"
   };
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
+  <script type="module" src="login.js"></script>
 
   const params = new URLSearchParams(window.location.search);
   const role = params.get("role") || "member";
